@@ -1,7 +1,7 @@
 {
   "name": "imgrph",
   "version": "0.0.1",
-  "location": "<enter project's github repository url here>",
+  "location": "https://github.com/zerojuan/imgr.ph.git",
   "author": "Julius Cebreros <juliuscebreros@gmail.com>",
   "description": "An Imgur Clone for the best of times",
   "project": {
