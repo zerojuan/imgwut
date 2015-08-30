@@ -1,0 +1,22 @@
+{
+  "name": "imgrph",
+  "version": "0.0.1",
+  "location": "<enter project's github repository url here>",
+  "author": "Julius Cebreros <juliuscebreros@gmail.com>",
+  "description": "An Imgur Clone for the best of times",
+  "project": {
+    "regions": {
+      "ap-northeast-1": {
+        "stages": {
+          "dev": {
+            "iamRoleArn": "arn:aws:iam::889274615573:role/dev-imgrph-LambdaRole-1OKDZCG280W58"
+          }
+        }
+      }
+    },
+    "envVarBucket": {
+      "name": "lambda.imgr.ph",
+      "region": "ap-northeast-1"
+    }
+  }
+}
