@@ -11,7 +11,7 @@ exports.handler = function(event, context) {
     // Sign-Up User
     ModelUser.signUp(event.body, function(error, json_web_token) {
 
-        if (error) return context.fail(error);
+        if (error) return context.fail(JSON.stringify(error));
 
         /**
          * Return
