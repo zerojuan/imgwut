@@ -187,22 +187,40 @@ JAWS.prototype.deploy = function(program) {
                     /**
                      * Delete Existing & Create New Lambda Function
                      */
+                    var p1 = {
+                      FunctionName: params.FunctionName,
+                      ZipFile: params.Code.ZipFile
+                    };
 
-                    console.log('****** JAWS: Deleting existing Lambda function...');
-
-                    lambda.deleteFunction({
-                        FunctionName: lambda_config.FunctionName
-                    }, function(err, data) {
-
-                        if (err) return console.log(err, err.stack); // an error occurred
-
-                        console.log('****** JAWS: Re-uploading your Lambda Function to AWS Lambda with these parameters: ');
-                        console.log(params);
-
-                        lambda.createFunction(params, function(err, data) {
-                            return cb(err, data);
-                        });
+                    // console.log('****** JAWS: Deleting existing Lambda function...');
+                    console.log('****** JAWS: Updating existing Lambda function...');
+                    lambda.updateFunctionCode(p1, function(err, data){
+                      //update lambda config
+                      var p2 = {
+                        FunctionName: params.FunctionName,
+                        Description: params.Description,
+                        MemorySize: params.MemorySize,
+                        Timeout: params.Timeout
+                      };
+                      console.log('****** JAWS: Updating Lambda config function...');
+                      lambda.updateFunctionConfiguration(p2, function(err, data){
+                          return cb(err, data);
+                      });
                     });
+
+                    // lambda.deleteFunction({
+                    //     FunctionName: lambda_config.FunctionName
+                    // }, function(err, data) {
+                    //
+                    //     if (err) return console.log(err, err.stack); // an error occurred
+                    //
+                    //     console.log('****** JAWS: Re-uploading your Lambda Function to AWS Lambda with these parameters: ');
+                    //     console.log(params);
+                    //
+                    //     lambda.createFunction(params, function(err, data) {
+                    //         return cb(err, data);
+                    //     });
+                    // });
                 }
             });
 

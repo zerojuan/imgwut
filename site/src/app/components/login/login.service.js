@@ -6,23 +6,46 @@
       .service('login', login);
 
   /** @ngInject */
-  function login($resource) {
-    var rootAPI = 'https://x19lgttbxg.execute-api.us-east-1.amazonaws.com/dev';
-    var Login = $resource(rootAPI+'/users/signin', null,
+  function login($resource, $cookies) {
+    var rootAPI = 'https://r43iy47kza.execute-api.us-east-1.amazonaws.com/dev';
+    var Login = $resource(rootAPI + '/users/signin', null,
         {
-          post: {method: 'POST'}
+          post: { method: 'POST' },
+        });
+    var Register = $resource(rootAPI + '/users/signup', null,
+        {
+          post: { method: 'POST' },
         });
 
-    this.login = function(email, password){
+    this.login = function(email, password) {
       var user = Login.post({
         body: {
           email: email,
-          password: password
-        }
-      }, function(data){
+          password: password,
+        },
+      }, function(data) {
         console.log(data);
       });
-    }
+
+      return user;
+    };
+
+    this.logout = function() {
+      $cookies.remove('jwt');
+    };
+
+    this.register = function(email, password) {
+      var user = Register.post({
+        body: {
+          email: email,
+          password: password,
+        },
+      }, function(data) {
+        console.log(data);
+      });
+
+      return user;
+    };
   }
 
 })();
